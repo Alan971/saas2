@@ -1,3 +1,65 @@
 body {
-    background-color: skyblue;
+    background-color: rgb(45, 142, 184);
+    color: black;
+}
+body.dark-mode {
+    background-color: #121212;
+    color: white;
+}
+
+.navbar.dark-mode {
+    background-color: #343a40 !important;/* Couleur foncée pour la barre de navigation */
+    color: white;
+}
+
+.navbar-light .navbar-nav .nav-link,
+.navbar-light .navbar-brand{
+    color: black;
+}
+
+.navbar.dark-mode .navbar-brand,
+.navbar.dark-mode .nav-link {
+    color: white !important;
+}
+/* Mode sombre pour l'icône SVG */
+.navbar.dark-mode svg {
+    stroke: white !important; /* Changer la couleur du SVG */
+}
+
+/* Mode sombre pour la notification */
+.navbar.dark-mode .notification-badge {
+    background-color: #ff5252 !important; /* Rouge vif */
+}
+
+/* Mode sombre pour la bordure des notifications */
+.navbar.dark-mode .nav-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Bordure en mode sombre */
+}
+
+/* Mode sombre pour le bouton navbar-toggler */
+.navbar.dark-mode .navbar-toggler {
+    border-color: white !important; /* Bordure blanche */
+}
+
+/* Mode sombre pour l'icône du bouton navbar-toggler */
+.navbar.dark-mode .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='white' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
+}
+
+.nav-link:hover {
+    box-shadow: 6px 2px 4px rgba(0, 0, 0, 0.1);  /* Ombre légère */
+    transition: box-shadow 0.3s ease-in-out;  /* Transition douce */
+}
+/* Ombre en mode sombre */
+.dark-mode .nav-link:hover {
+    box-shadow: 6px 2px 4px rgba(255, 255, 255, 0.3);  /* Ombre claire en mode sombre */
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.navbar .nav-link.active {
+    color: #181717;
+}
+#darkModeIcon svg {
+    width: 24px;
+    height: 24px;
 }
