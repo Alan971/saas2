@@ -1,22 +1,20 @@
 
 
-<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="{{ path('app_home') }}">
-            <img src="{{ asset('img/Logo.png') }}" alt="SAAS" class="logo">
+            <img src="{{ asset('img/Logo.PNG') }}" alt="SAAS" class="logo">
         </a>
         <div class="d-flex ms-auto"></div>
             <a href="{{ path('app_home') }}" class="nav-link active me-3" aria-current="page">Accueil</a>
-            <a href="{{ path('app_home') }}" class="nav-link active me-3" aria-current="page">Nos produits</a>
-            <a class="nav-link active me-3" href="#">À propos</a>
-            <button id="darkModeToggle" class="btn btn-dark m-3">
+            <a href="{{ path('app_home') }}#Produits" class="nav-link active me-3" aria-current="page">Nos produits</a>
+            <a class="nav-link active me-3" href="{{ path('app_home') }}#propos">À propos</a>
+            <button id="darkModeToggle" class="btn m-3">
                 <span id="darkModeIcon">
                     <!-- Icône par défaut soleil -->
-                    <svg id="dark-mode-icon" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" class="h-6 w-6">
                         <path id="dark-icon" class="block dark:hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5M2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1m18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1M11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1m0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1M5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0z"/>
-                        <path id="light-icon" class="hidden dark:block" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 0111.21 3a7 7 0 109.58 9.58z"/>
                     </svg>
-
                 </span>
                 <span class="d-none">Dark Mode</span> <!-- Texte caché pour l'accessibilité  -->
             </button>
@@ -26,7 +24,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ">
-                    {% if 1 == 1 %}
+                    {% if app.user %}
                         <li class="nav-item ms-auto">
                             <a href="#" class="nav-link">Notifications&nbsp;&nbsp;
                                 <span class="notification-badge absolute top-1 right-10 block h-2.5 w-2.5 bg-red-600 rounded-full"></span>
@@ -53,6 +51,7 @@
 
                     {% else %}
                         <li class="nav-item dropdown ms-auto"><a class="nav-link" href="{{ path('app_login') }}">Connexion</a></li>
+                        <li class="nav-item dropdown ms-auto"><a class="nav-link" href="{{ path('app_register') }}">Inscription</a></li>
                     
                     {% endif %}
                 </ul>
@@ -111,7 +110,8 @@
         if (document.body.classList.contains('dark-mode')) {
             darkModeIcon.innerHTML = `
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" class="h-6 w-6">
-<path id="light-icon" class="hidden dark:block" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 0111.21 3a7 7 0 109.58 9.58z"/>                </svg>
+                    <path id="light-icon" class="hidden dark:block" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 0111.21 3a7 7 0 109.58 9.58z"/>
+                </svg>
             `;  // Lune (mode sombre)
         } else {
             darkModeIcon.innerHTML = `

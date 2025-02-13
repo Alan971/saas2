@@ -16,6 +16,8 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
+use Psr\Log\LoggerInterface;
+
 class RegistrationController extends AbstractController
 {
     public function __construct(private EmailVerifier $emailVerifier)
@@ -23,13 +25,17 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    public function register(LoggerInterface $logger, Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('plainPassword')->getData() !== $form->get('confirmPassword')->getData()) {
+                $this->addFlash('verify_email_error', 'Les mots de passe ne correspondent pas');
+                return $this->redirectToRoute('app_register');
+            }
             /** @var string $plainPassword */
             $plainPassword = $form->get('plainPassword')->getData();
 
@@ -50,7 +56,7 @@ class RegistrationController extends AbstractController
 
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('_profiler_home');
+            return $this->render('registration/waitforconfirmation.html.twig');
         }
 
         return $this->render('registration/register.html.twig', [
@@ -79,4 +85,5 @@ class RegistrationController extends AbstractController
 
         return $this->redirectToRoute('app_register');
     }
+ 
 }

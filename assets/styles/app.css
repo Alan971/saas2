@@ -1,10 +1,18 @@
 body {
-    background-color: rgb(45, 142, 184);
+    background-color: rgb(218, 220, 221);
     color: black;
+    padding-top: 100px;
 }
 body.dark-mode {
     background-color: #121212;
     color: white;
+}
+
+.navbar {
+    background-color: rgb(138, 159, 168) !important;
+}
+.navbar .nav-link.active {
+    color: #181717;
 }
 
 .navbar.dark-mode {
@@ -56,10 +64,11 @@ body.dark-mode {
     transition: box-shadow 0.3s ease-in-out;
 }
 
-.navbar .nav-link.active {
-    color: #181717;
-}
 #darkModeIcon svg {
     width: 24px;
     height: 24px;
+}
+.logo {
+    width: auto;
+    max-height: 50px;
 }
