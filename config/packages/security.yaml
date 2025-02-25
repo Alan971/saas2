@@ -34,8 +34,17 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/login, roles: PUBLIC_ACCESS }
+        - { path: ^/register, roles: PUBLIC_ACCESS }
+        - { path: ^/verify/email, roles: PUBLIC_ACCESS }
+        - { path: ^/, roles: PUBLIC_ACCESS }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+    
+    role_hierarchy:
+        # Admins have all permissions of users
+        ROLE_USER: [ROLE_ADMIN]
+        # Admins can also access the 'admin' section
+        ROLE_ADMIN: [ROLE_SUPER_ADMIN]
 
 when@test:
     security:

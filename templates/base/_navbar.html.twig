@@ -2,13 +2,16 @@
 
 <nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container-fluid">
+        {# logo #}
         <a class="navbar-brand" href="{{ path('app_home') }}">
             <img src="{{ asset('img/Logo.PNG') }}" alt="SAAS" class="logo">
         </a>
+        {# menu principal #}
         <div class="d-flex ms-auto"></div>
             <a href="{{ path('app_home') }}" class="nav-link active me-3" aria-current="page">Accueil</a>
             <a href="{{ path('app_home') }}#Produits" class="nav-link active me-3" aria-current="page">Nos produits</a>
             <a class="nav-link active me-3" href="{{ path('app_home') }}#propos">À propos</a>
+            {# bouton pour basculer entre mode sombre et clair #}
             <button id="darkModeToggle" class="btn m-3">
                 <span id="darkModeIcon">
                     <!-- Icône par défaut soleil -->
@@ -18,6 +21,7 @@
                 </span>
                 <span class="d-none">Dark Mode</span> <!-- Texte caché pour l'accessibilité  -->
             </button>
+            {# menu déroulant #}
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -33,20 +37,21 @@
                                 </svg>
                             </a>
                         </li>
-
                         <li class="nav-item ms-auto">
                             <a class="nav-link" href="#">Fonctionnalités</a>
                         </li>
+                        {% if is_granted("ROLE_ADMIN") %} 
                         <li class="nav-item dropdown ms-auto">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                Paramètres de compte
+                                Administration du site
                             </a>
                             <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Mon Profil</a></li>
-                                <li><a class="dropdown-item" href="#">Déconnexion</a></li>
+                                <li><a class="dropdown-item" href="#">Administration des produits</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_admin_account') }}">Gestion des comptes</a></li>
                             </ul>
                         </li>
+                        {% endif %}
                         <li class="nav-item dropdown ms-auto"><a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a></li>
 
                     {% else %}

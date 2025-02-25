@@ -6,9 +6,9 @@ services:
     env_file:
       - .env.local
     ports:
-      - "5432:5432"
+      - "32778:5432"
     healthcheck:
-      test: ["CMD", "pg_isready", "-d", "${POSTGRES_DB:-app}", "-U", "${POSTGRES_USER:-app}"]
+      test: ["CMD", "pg_isready", "-d", "${POSTGRES_DB:-saas2}", "-U", "${POSTGRES_USER:-root}"]
       timeout: 5s
       retries: 5
       start_period: 60s

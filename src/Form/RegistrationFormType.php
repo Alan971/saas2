@@ -33,6 +33,20 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],])
+            ->add('name', TextType::class, [
+                'label' => 'Nom',
+                'attr' => ['class' => 'form-control', 'style' => 'margin-bottom: 10px;'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a name',
+                    ]),
+                    new Length([
+                        'min' => 2,
+                        'minMessage' => 'Your name should be at least {{ limit }} characters',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 4096,
+                    ]),
+                ],])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'label' => 'Conditions générales',

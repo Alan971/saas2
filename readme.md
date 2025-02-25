@@ -17,6 +17,14 @@ Ce tutoriel vous guide dans la création d'une application SaaS avec Symfony, y 
     docker-compose up -d
     ```
 
+    <u>**Important !!!**</u>
+    
+    Ajouter cette ligne dans le fichier .env.local:
+    ```bash
+    DATABASE_URL="postgresql://root:********@host.docker.internal:32778/saas2?serverVersion=16&charset=utf8"
+    ```
+    On ne peut accéder à la base de donnée postgreSQL depuis symfony CLI et le site web qu'avec cette ligne de code.
+
 ## Création d'un utilisateur
 
 1. Créez un utilisateur :
@@ -31,6 +39,19 @@ Ce tutoriel vous guide dans la création d'une application SaaS avec Symfony, y 
 
     ```bash
     composer require symfonycasts/verify-email-bundle
+    ```
+
+2. Controle du fonctionnement de mailpit :
+    Ce simulateur de mail est fourni par défaut avec Symfony.
+    il démarre avec docker-compose et est accessible à l'adresse http://localhost:8025
+    il faut ajouter dans .env.local le paramètre MAILER_DSN=smtp://mailer:1025
+
+3. Envoi et réception de mails :
+    lors de l'envoi du mail à l'enregistrement, le mail est stocké pour l'envoi mais pas envoyé immédiatement.
+    avec la barre symfony on peut voir les mails qui ont été envoyés mais pas encore reçus.
+    il faut donc l'envoyer manuellement.
+    ```bash
+    symfony console messenger:consume async
     ```
 
 ## Mise en place du formulaire d'enregistrement
@@ -109,4 +130,28 @@ et exécutez la commande suivante pour consommer le message :
 
     ```bash
     symfony console make:controller Home
+    ```
+## Création de la bare de navigation en bootstrap et du theme du site
+
+1. Créez le fichier `_navbar.html.twig` :
+Je ne rentre pas dans les détails mais elle est reproductible.
+il suffit de copier le contenu du fichier `_navbar.html.twig` 
+ainsi que les lignes d'accès aux routes bootstrap dans le fichier `base.html.twig`.
+
+2. quelque modifications ont été apportées dans le css pour le rendu bootstrap.
+
+## partie admin
+
+1. description des roles
+dans le fichier `security.yaml`, on édite les roles et les permissions.
+pour l'instant on a deux roles :
+
+- ROLE_USER : utilisateur
+- ROLE_ADMIN : administrateur
+- ROLE_SUPER_ADMIN : administrateur super
+
+2. création du contrôleur AdminAccount pour la gestion des comptes
+
+    ```bash
+    symfony console make:controller AdminAccount
     ```

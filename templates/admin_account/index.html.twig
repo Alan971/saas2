@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration des comptes{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-between align-items-center">
+        <h1>Utilisateurs</h1>
+
+        {% for flash in app.flashes('message') %}
+            <div class="alert alert-danger" role="alert">{{ flash }}</div>
+        {% endfor %}
+
+        {# <a href="{{ path('admin_account_add') }}" class="btn btn-primary">Ajouter</a> #}
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Email</th>
+            <th>Actions</th>
+            <th>Rôle(s)</th>
+            <th>Détails</th>
+        </tr>
+        </thead>
+        <tbody>
+                {% for user in users %}
+            <tr>
+                <td>{{ user.email }} </td>
+                <td>
+                    <a href="{{ path('admin_account_lock', {id: user.id}) }}" class="btn btn-warning">{% if user.isVerified %}Bloquer{% else %}Débloquer{% endif %}</a>
+                    <a href="{{ path('admin_account_delete', {id: user.id}) }}" class="btn btn-danger">Supprimer</a>
+                </td>
+                <td>
+                    <p> {{ user.roles|join(', ') }}</p>
+                </td>
+                <td>
+                    <a href="{{ path('admin_account_modify', {id: user.id}) }}" class="btn btn-primary">Détails</a>
+                </td>
+            </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
